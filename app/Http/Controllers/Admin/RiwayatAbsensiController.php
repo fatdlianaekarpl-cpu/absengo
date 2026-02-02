@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Absensi;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf; // Pastikan import ini ada
+use Barryvdh\DomPDF\Facade\Pdf; 
 
 class RiwayatAbsensiController extends Controller
 {
@@ -31,19 +31,18 @@ class RiwayatAbsensiController extends Controller
         $riwayat = Absensi::with('user')
             ->whereMonth('tanggal', $bulan)
             ->whereYear('tanggal', $tahun)
-            ->orderBy('tanggal', 'asc') // Urutkan dari tanggal awal untuk laporan
+            ->orderBy('tanggal', 'asc')
             ->get();
 
         $namaBulan = \Carbon\Carbon::create()->month($bulan)->translatedFormat('F');
 
-        // Mengarahkan ke view khusus PDF
+
         $pdf = Pdf::loadView('admin.absensi.cetak-pdf', [
             'riwayat' => $riwayat,
             'bulan' => $namaBulan,
             'tahun' => $tahun
         ]);
 
-        // Download file dengan nama dinamis
-        return $pdf->download("Laporan-Absensi-$namaBulan-$tahun.pdf");
+        return $pdf->stream("Laporan-Absensi-$namaBulan-$tahun.pdf");
     }
 }

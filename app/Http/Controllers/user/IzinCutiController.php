@@ -12,7 +12,6 @@ class IzinCutiController extends Controller
 
     public function index()
 {
-    // Perbaikan: gunakan user_id, bukan id
     $izinCuti = IzinCuti::where('user_id', Auth::id())
         ->orderBy('created_at', 'desc')
         ->get();
@@ -31,7 +30,6 @@ class IzinCutiController extends Controller
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
         ]);
 
-        // VALIDASI JATAH SEBELUM SUBMIT
         if ($request->jenis === 'Cuti' && $user->sisa_cuti <= 0) {
             return back()->with('error', 'Maaf, sisa cuti Anda sudah habis.');
         }

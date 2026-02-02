@@ -13,7 +13,7 @@ class Absensi extends Model
 
     protected $fillable = [
         'user_id',
-        'shift_id', // Tambahkan ini agar tidak error saat create/update
+        'shift_id', 
         'tanggal',
         'jam_masuk',
         'jam_keluar',
@@ -23,17 +23,12 @@ class Absensi extends Model
         'lembur_menit',
     ];
 
-    /**
-     * Relasi ke User
-     */
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Relasi ke Shift (Opsional, tapi berguna untuk laporan)
-     */
     public function shift()
     {
         return $this->belongsTo(Shift::class);

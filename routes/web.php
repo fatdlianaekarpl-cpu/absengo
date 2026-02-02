@@ -7,8 +7,6 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\ShiftController;
 use App\Http\Controllers\Admin\RiwayatAbsensiController;
 use App\Http\Controllers\Admin\IzinCutiController;
-
-// 🔥 PERBAIKAN DI SINI (User huruf BESAR)
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\IzinCutiController as UserIzinCutiController;
 
@@ -49,8 +47,6 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('shift', ShiftController::class)->except(['show']);
 
         Route::resource('user', AdminUserController::class)->except(['show']);
-
-        // UPDATE JATAH
         Route::put('/user/{id}/update-jatah', [AdminUserController::class, 'updateJatah'])
             ->name('user.updateJatah');
     });

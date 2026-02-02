@@ -14,19 +14,15 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('password');
 
-            // ROLE
             $table->enum('role', ['admin', 'user'])->default('user');
 
-            // STATUS USER
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
 
-            // SHIFT (DITAMBAHKAN LANGSUNG)
             $table->foreignId('shift_id')
                 ->nullable()
                 ->constrained('shifts')
                 ->nullOnDelete();
 
-            // JATAH
             $table->integer('sisa_cuti')->default(12);
             $table->integer('sisa_izin')->default(5);
 

@@ -11,7 +11,7 @@
         
         <a href="{{ route('admin.riwayat.pdf', ['bulan' => request('bulan', date('m')), 'tahun' => request('tahun', date('Y'))]) }}" 
            class="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-lg shadow-red-200">
-            <span>📄</span> Cetak Laporan PDF
+             Cetak Laporan PDF
         </a>
     </div>
 
@@ -38,7 +38,7 @@
             </div>
 
             <button type="submit" class="bg-[#B7CCD4] hover:bg-slate-400 text-slate-800 px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2">
-                Filter Data
+                Search Data
             </button>
         </form>
     </div>

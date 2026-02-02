@@ -15,7 +15,6 @@ class UserDashboardController extends Controller
         $user = Auth::user()->load('shift');
         $today = Carbon::today()->toDateString();
 
-        // ✅ CEK IZIN / CUTI HARI INI YANG DISETUJUI
         $isIzinHariIni = IzinCuti::where('user_id', $user->id)
             ->where('status', 'disetujui')
             ->whereDate('tanggal_mulai', '<=', $today)
@@ -35,7 +34,7 @@ class UserDashboardController extends Controller
             'absensi'         => $absensi,
             'sisaCuti'        => $user->sisa_cuti,
             'sisaIzin'        => $user->sisa_izin,
-            'isIzinHariIni'   => $isIzinHariIni, // 🔑 PENTING
+            'isIzinHariIni'   => $isIzinHariIni, 
         ]);
     }
 
@@ -44,7 +43,6 @@ class UserDashboardController extends Controller
         $user  = Auth::user();
         $today = Carbon::today()->toDateString();
 
-        // ❌ BLOK ABSEN JIKA IZIN / CUTI
         $izinHariIni = IzinCuti::where('user_id', $user->id)
             ->where('status', 'disetujui')
             ->whereDate('tanggal_mulai', '<=', $today)
@@ -55,7 +53,6 @@ class UserDashboardController extends Controller
             return back()->with('error', 'Anda sedang izin / cuti hari ini.');
         }
 
-        // === LOGIKA LAMA (TIDAK DIUBAH) ===
         if (Absensi::where('user_id', $user->id)->whereDate('tanggal', $today)->exists()) {
             return back()->with('error', 'Anda sudah absen masuk hari ini.');
         }
@@ -93,7 +90,6 @@ class UserDashboardController extends Controller
         $user  = Auth::user();
         $today = Carbon::today()->toDateString();
 
-        // ❌ BLOK ABSEN PULANG JIKA IZIN / CUTI
         $izinHariIni = IzinCuti::where('user_id', $user->id)
             ->where('status', 'disetujui')
             ->whereDate('tanggal_mulai', '<=', $today)
@@ -104,7 +100,6 @@ class UserDashboardController extends Controller
             return back()->with('error', 'Anda sedang izin / cuti hari ini.');
         }
 
-        // === LOGIKA LAMA (TIDAK DIUBAH) ===
         $absen = Absensi::where('user_id', $user->id)
             ->whereDate('tanggal', $today)
             ->first();

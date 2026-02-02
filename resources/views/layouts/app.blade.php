@@ -35,7 +35,6 @@
                 <span class="bg-[#B7CCD4] px-6 py-2 rounded-lg font-medium">
                     Welcome {{ auth()->user()->nama ?? 'Admin' }}
                 </span>
-                <img src="https://i.pravatar.cc/50" class="w-10 h-10 rounded-full">
             </div>
         </div>
 
